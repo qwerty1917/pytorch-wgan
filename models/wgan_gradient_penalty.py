@@ -248,11 +248,11 @@ class WGAN_GP(object):
                 # ============ TensorBoard logging ============#
                 # (1) Log the scalar values
                 info = {
-                    'Wasserstein distance': Wasserstein_D.data[0],
-                    'Loss D': d_loss.data[0],
-                    'Loss G': g_cost.data[0],
-                    'Loss D Real': d_loss_real.data[0],
-                    'Loss D Fake': d_loss_fake.data[0]
+                    'Wasserstein distance': Wasserstein_D.item(),
+                    'Loss D': d_loss.item(),
+                    'Loss G': g_cost.item(),
+                    'Loss D Real': d_loss_real.item(),
+                    'Loss D Fake': d_loss_fake.item()
 
                 }
 
