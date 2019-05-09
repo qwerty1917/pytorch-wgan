@@ -167,7 +167,7 @@ class WGAN_GP(object):
                 # Train with real images
                 d_loss_real = self.D(images)
                 d_loss_real = d_loss_real.mean()
-                d_loss_real.backward(mone)
+                d_loss_real.backward(mone, retain_graph=True)
 
                 # Train with fake images
                 if self.cuda:
@@ -177,11 +177,11 @@ class WGAN_GP(object):
                 fake_images = self.G(z)
                 d_loss_fake = self.D(fake_images)
                 d_loss_fake = d_loss_fake.mean()
-                d_loss_fake.backward(one)
+                d_loss_fake.backward(one, retain_graph=True)
 
                 # Train with gradient penalty
                 gradient_penalty = self.calculate_gradient_penalty(images.data, fake_images.data)
-                gradient_penalty.backward()
+                gradient_penalty.backward(retain_graph=True)
 
 
                 d_loss = d_loss_fake - d_loss_real + gradient_penalty
@@ -199,7 +199,7 @@ class WGAN_GP(object):
             fake_images = self.G(z)
             g_loss = self.D(fake_images)
             g_loss = g_loss.mean()
-            g_loss.backward(mone)
+            g_loss.backward(mone, retain_graph=True)
             g_cost = -g_loss
             self.g_optimizer.step()
 
